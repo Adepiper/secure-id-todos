@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
-import { ListState, TaskType, listActions } from '../redux/listSlices';
+import { FC, useState } from 'react';
 import { DragDropContext, Draggable } from 'react-beautiful-dnd';
 import { StrictModeDroppable } from '../Components/Dropable';
 import TaskItem from '../Components/TaskItem';
+import { ListState, TaskType, listActions } from '../redux/listSlices';
 import { useAppDisPatch } from '../redux/store';
 
 interface Props {
@@ -14,7 +14,11 @@ const Lists: FC<Props> = ({ data }) => {
 	const dispatch = useAppDisPatch();
 
 	if (!data) {
-		return <p>No data available</p>;
+		return (
+			<p>
+				No task selected, Add a new task and select it to show up here
+			</p>
+		);
 	}
 
 	const { tasks, title, id } = data;
@@ -104,7 +108,7 @@ const Lists: FC<Props> = ({ data }) => {
 				<form onSubmit={addNewTask}>
 					<input
 						type='text'
-						placeholder='Add new Task'
+						placeholder='Add a sub task'
 						value={value}
 						onChange={(e) => setValue(e.target.value)}
 					/>
