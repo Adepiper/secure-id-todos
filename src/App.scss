@@ -1,0 +1,379 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background-color: #f6f6f6;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+.navbar {
+  height: 60px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+
+  &_content {
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      background-color: transparent;
+      border: 1px solid #8f00ff;
+      color: #8f00ff;
+      display: none;
+
+      @media (max-width: 500px) {
+        display: inline;
+      }
+    }
+
+    h3 {
+      color: #8f00ff;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      span {
+        font-weight: 400;
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  margin-top: 10px;
+  gap: 10px;
+  height: calc(100vh - 70px);
+
+  @media (max-width: 500px) {
+    display: block;
+  }
+
+  &_content {
+    background-color: #fff;
+    padding: 20px;
+    height: 100%;
+
+    h3 {
+      display: flex;
+      justify-content: space-between;
+      font-size: 40px;
+      font-weight: 400;
+
+      button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: red;
+      }
+    }
+  }
+}
+
+.sidebar {
+  background-color: #fff;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+
+  &_close {
+    display: none;
+  }
+
+  &_bottom {
+    position: relative;
+  }
+
+  a {
+    &.active {
+      color: #8f00ff;
+    }
+    &:is(:link, :active, :hover, :visited) {
+      display: flex;
+      padding: 10px;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      color: #757575;
+    }
+
+    &:last-child {
+      border-bottom: 1px solid #757575;
+    }
+  }
+
+  @media (max-width: 500px) {
+    display: none;
+  }
+}
+
+.mobileSidebar {
+  @extend .sidebar;
+  @media (max-width: 500px) {
+    top: 0;
+    left: 0;
+    width: 200px;
+    position: fixed;
+    display: flex;
+    z-index: 1000;
+    padding-top: 30px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+    .sidebar_close {
+      display: inline;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: red;
+      border: none;
+      background-color: transparent;
+      outline: none;
+    }
+  }
+}
+
+.list_view {
+  height: 100%;
+  position: relative;
+}
+
+.add_new {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 10px;
+
+    button {
+      color: red;
+    }
+  }
+  form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    flex: 1 1 80%;
+    border: none;
+    border-bottom: 1px solid #757575;
+    gap: 5px;
+    outline: none;
+    padding: 5px;
+    max-width: 90%;
+  }
+
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+}
+
+.taskList {
+  list-style: none;
+  padding-left: 0;
+}
+
+.dragItem {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 20px 0;
+  background-color: #f6f6f6;
+  padding: 0 10px;
+  border-radius: 10px;
+}
+
+.taskItem {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: 10px;
+  height: 60px;
+
+  .undone {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid #8f00ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+
+    &:hover {
+      i {
+        visibility: visible;
+        color: #8f00ff;
+      }
+    }
+
+    i {
+      visibility: hidden;
+    }
+  }
+
+  .completed {
+    @extend .undone;
+    background-color: #8f00ff;
+    i {
+      color: #fff;
+      visibility: visible;
+    }
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: transparent;
+    margin-left: 5px;
+    color: #8f00ff;
+  }
+
+  &_actions {
+    margin-left: auto;
+    color: #8f00ff;
+  }
+}
+
+.edit_task {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: #00000023;
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+
+  input {
+    font-size: 20px;
+    border: none;
+    outline: none;
+  }
+
+  textarea {
+    border: none;
+    outline: none;
+    height: 200px;
+    resize: none;
+    background-color: #f6f6f6;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  &-content {
+    height: 100%;
+    background-color: #ffffff;
+    width: 80%;
+    max-width: 400px;
+    padding: 40px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: relative;
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: red;
+    }
+
+    .btn_myday {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px;
+    }
+
+    &_actions {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+}
+
+.addList_btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background-color: transparent;
+  height: 40px;
+  border: none;
+  outline: none;
+}
+
+.listLink {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    font-size: 12px;
+    color: red;
+    background-color: transparent;
+    border: none;
+    outline: none;
+  }
+}
