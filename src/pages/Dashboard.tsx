@@ -5,6 +5,7 @@ import { useAppDisPatch, useAppSelector } from '../redux/store';
 import Important from './Important';
 import Lists from './Lists';
 import MyDay from './MyDay';
+import toast from 'react-hot-toast';
 
 const Dashboard = () => {
 	const { lists } = useAppSelector((state) => state.list);
@@ -33,6 +34,7 @@ const Dashboard = () => {
 				tasks: [],
 			})
 		);
+		toast.success('New task added successfully');
 		setlistTitle('');
 	};
 
@@ -40,6 +42,7 @@ const Dashboard = () => {
 
 	const deleteList = (id: string, index: number) => {
 		dispatch(listActions.deleteList(id));
+		toast.success('Task deleted successfully');
 
 		if (index === activeList) setactiveList((prev) => prev - 1);
 	};

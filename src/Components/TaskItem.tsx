@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import { TaskType, listActions } from '../redux/listSlices';
 import { useAppDisPatch, useAppSelector } from '../redux/store';
 import EditTask from './EditTask';
+import toast from 'react-hot-toast';
 
 interface Props {
 	data: TaskType;
@@ -15,6 +16,9 @@ const TaskItem: FC<Props> = ({ data, listId }) => {
 	const markAsImportant = () => {
 		if (data.is_important) {
 			dispatch(listActions.removeFromImportant(data.id));
+			toast.success(
+				'You have successfully removed the todo from important todos'
+			);
 		} else {
 			dispatch(
 				listActions.addToImportant({
@@ -22,6 +26,9 @@ const TaskItem: FC<Props> = ({ data, listId }) => {
 					listId,
 					is_important: !data.is_important,
 				})
+			);
+			toast.success(
+				'You have successfully added the todo to important todos'
 			);
 		}
 		dispatch(
@@ -50,6 +57,7 @@ const TaskItem: FC<Props> = ({ data, listId }) => {
 				task: { ...data, is_completed: !data.is_completed },
 			})
 		);
+		toast.success('Marked as completed');
 	};
 
 	return (
